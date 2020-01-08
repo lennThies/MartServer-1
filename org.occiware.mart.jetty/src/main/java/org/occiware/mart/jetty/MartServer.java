@@ -79,15 +79,15 @@ public class MartServer {
 
         server.setStopAtShutdown(true);
         server.setStopTimeout(10000); // 10 seconds to terminate the server when stop method invoquation is done.
-
+        
         handler.addServletWithMapping(MainServlet.class, "/*");
 
         handler.addLifeCycleListener(new CycleListener());
 
-
         if (httpProtocol.equalsIgnoreCase(HTTPS_PROTOCOL)) {
             // Configure https protocol
             HttpConfiguration httpsConfig = new HttpConfiguration();
+            httpsConfig.setRequestHeaderSize(65535);
             httpsConfig.addCustomizer(new SecureRequestCustomizer());
             SslContextFactory sslContextFactory = new SslContextFactory();
             sslContextFactory.setKeyStorePath(MartServer.class.getResource(
@@ -115,6 +115,11 @@ public class MartServer {
 //                LOGGER.error("Plugins not installed : " + ex.getClass().getName() + " --> " + ex.getMessage());
 //                ex.printStackTrace();
 //            }
+
+            for (Connector c : server.getConnectors()) {
+                c.getConnectionFactory(HttpConnectionFactory.class).getHttpConfiguration().setRequestHeaderSize(65535);
+            }
+            
             server.start();
             serverStarted = true;
             server.join();
