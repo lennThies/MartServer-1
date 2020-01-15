@@ -104,6 +104,14 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
+	<repository>
+            <id>ifi-nexus</id>
+            <name>ifi-nexus</name>
+            <url>https://nexus.informatik.uni-goettingen.de/content/repositories/rwm/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
     <repository>
       <id>eclipse</id>
       <name>Eclipse Releases</name>
