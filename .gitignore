@@ -8,3 +8,4 @@ node/
 *.classpath
 *.project
 *.settings
+/bin/
